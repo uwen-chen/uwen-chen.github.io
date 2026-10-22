@@ -64,118 +64,102 @@
     font-style: italic;
   }
 }
-
 // -----------------------------------------------------------------------------
-// 首页文章卡片网格（一排 6 张，等高卡片，响应式降级）
-// 结构：.page.home.posts > article.single.summary（标题/meta/摘要/footer）
+// 首页文章卡片（参考 fixit.lruihao.cn/zh-cn/ecosystem 的 GitHub 风卡片）
+// Design token: 边框1px / 圆角6px / 白底深边 / muted 灰 / 蓝色链接，一排 2 张
 // -----------------------------------------------------------------------------
-
-// 首页容器放宽（6 列卡片需要更大画布；仅影响首页，不影响文章页 normal 布局）
-@media (min-width: 1280px) {
-  main:has(> .page.home.posts) {
-    width: 92% !important;
-    max-width: 1500px !important;
-  }
-}
 
 .page.home.posts {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 0.8rem;
-  align-items: stretch;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 0.5rem 0;
 
   article.single.summary {
     display: flex;
     flex-direction: column;
-    min-height: 200px;           // 适量高度，等高排布
-    padding: 0.85rem 0.95rem;
-    overflow: hidden;
-    background: light-dark(#ffffff, #1d2229);
-    border: 1px solid light-dark(#d5dbe2, #3a424d);
-    border-radius: 10px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: calc(50% - 0.5rem);
+    padding: 16px;
+    background: light-dark(#ffffff, #22272e);
+    border: MAX(1px, 0.0625rem) solid light-dark(#d0d7de, #444c56);
+    border-radius: 0.375rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
-      transform: translateY(-4px);
-      border-color: light-dark(#0969da, #4493f8);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+      border-color: light-dark(#0969da, #478be6);
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
     }
 
-    // 标题：紧凑两行截断
+    // 标题行：GitHub repo-name 风格（蓝色链接，hover 下划线）
     .single-title {
-      margin: 0 0 0.35rem;
-      font-size: 0.92rem;
-      line-height: 1.45;
+      margin: 0 0 0.25rem;
+      font-size: 0.875rem;
+      line-height: 1.5;
 
-      a { color: inherit; }
+      a {
+        color: light-dark(#0969da, #478be6);
+        font-weight: 600;
+
+        &:hover { text-decoration: underline; }
+      }
     }
 
-    // 元信息：只保留发布日期，收窄行距
+    // 元信息行：muted 小字
     .post-meta {
-      margin-bottom: 0.4rem;
-      font-size: 0.7rem;
-
-      .post-author,
-      .post-included-in { display: none; }
+      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      color: light-dark(#636c76, #717e8b);
     }
 
-    // 摘要：三行截断，块级元素全部扁平化/隐藏，避免撑破卡片
+    // 摘要：repo-desc 风格，中间区域自动撑开，三行截断
     .content {
-      font-size: 0.78rem;
-      line-height: 1.55;
-      color: light-dark(#57606a, #9198a1);
+      display: -webkit-box;
+      flex: 1 0 auto;
+      margin: 0;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: light-dark(#636c76, #717e8b);
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
 
       h1, h2, h3, h4, h5, h6,
       img, video, table, pre,
       .mermaid, .code-block,
-      blockquote, ul, ol { display: none; }
+      blockquote { display: none; }
 
       p { margin: 0; }
-
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
 
-    // 底部：阅读全文按钮贴底对齐，隐藏标签节省空间
+    // 底部统计行：repo-statistics 风格（标签胶囊 + 阅读全文 muted 链接）
     .post-footer {
-      margin-top: auto;
+      margin-top: 0.5rem;
       padding-top: 0.5rem;
-
-      .post-tags { display: none; }
+      font-size: 0.75rem;
+      color: light-dark(#636c76, #717e8b);
 
       > a:first-child {
-        display: inline-block;
-        padding: 0.18rem 0.7rem;
-        font-size: 0.72rem;
-        line-height: 1.6;
-        color: light-dark(#ffffff, #0d1117) !important;
-        background: light-dark(#0969da, #4493f8);
-        border-radius: 999px;
-        transition: opacity 0.2s ease;
+        color: light-dark(#0969da, #478be6);
 
-        &:hover { opacity: 0.85; }
+        &:hover { text-decoration: underline; }
+      }
+
+      .post-tags a.post-tag {
+        padding: 0.1em 0.5em;
+        font-size: 85%;
+        border: MAX(1px, 0.0625rem) solid light-dark(#d0d7de, #444c56);
+        border-radius: 2em;
       }
     }
   }
 
   // 分页器独占整行
-  .pager { grid-column: 1 / -1; }
+  .pager { width: 100%; }
 }
 
-// 响应式降级：6 → 4 → 3 → 2 列
-@media (max-width: 1280px) {
-  .page.home.posts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}
-@media (max-width: 992px) {
-  .page.home.posts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
+// 手机单列
 @media (max-width: 576px) {
-  .page.home.posts {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem;
-
-    article.single.summary .single-title { font-size: 0.85rem; }
-  }
+  .page.home.posts article.single.summary { width: 100%; }
 }
