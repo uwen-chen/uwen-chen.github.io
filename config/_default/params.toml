@@ -1,0 +1,42 @@
+# 主题参数（未列出的项自动继承主题默认值）
+description = "记录技术与生活"
+keywords = ["Kubernetes", "云原生", "DevOps", "Hugo"]
+default_theme = "auto"
+date_format = "2006-01-02"
+# 个人博客不需要 /authors/<name>/ 作者归档页（避免 0.168 主题 taxonomies 不合并的报错）
+author_archive = false
+
+# 作者信息
+[author]
+name = "cyu"
+link = "https://github.com/baij1314"
+avatar = "https://github.com/baij1314.png"
+
+# 页脚
+[footer]
+since = 2026
+beian = ""
+
+# 页面级默认参数
+[page]
+[page.toc]
+enable = true
+auto = true
+[page.code]
+copy = true
+maxShownLines = 50
+[page.share]
+enable = true
+[page.comment]
+enable = false
+
+# 搜索（内置 Fuse.js）
+[search]
+enable = true
+type = "fuse"
+placeholder = "搜索文章…"
+
+# 头部副标题
+[header.subtitle]
+name = "记录与分享"
+type = "text"

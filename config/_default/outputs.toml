@@ -1,0 +1,7 @@
+# 输出格式（FixIt：归档/搜索页由 home 的自定义 output 生成，无需 content 文件）
+# 自定义格式定义见 outputformats.toml
+home = ["html", "rss", "archives", "search", "offline", "manifest"]
+page = ["html", "markdown"]
+section = ["html", "rss"]
+taxonomy = ["html"]
+term = ["html", "rss"]

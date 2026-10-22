@@ -1,0 +1,54 @@
+# 站点基础配置
+title = "我的博客"
+baseURL = "https://example.org/"
+
+# 中文站点
+defaultContentLanguage = "zh-cn"
+locale = "zh-CN"
+hasCJKLanguage = true
+timeZone = "Asia/Shanghai"
+
+# 主题
+theme = "fixit"
+
+# 功能开关（其余继承主题默认）
+enableRobotsTXT = true
+enableEmoji = true
+
+# 每页文章数
+[pagination]
+pagerSize = 10
+
+# 自定义输出格式（复制自 FixIt 主题；Hugo 0.168 未自动合并主题该段）
+[outputFormats.archives]
+path = "archives"
+baseName = "index"
+mediaType = "text/html"
+isPlainText = false
+isHTML = true
+permalinkable = true
+notAlternative = true
+
+[outputFormats.offline]
+path = "offline"
+baseName = "index"
+mediaType = "text/html"
+isPlainText = false
+isHTML = true
+permalinkable = true
+notAlternative = true
+
+[outputFormats.search]
+baseName = "search"
+mediaType = "application/json"
+rel = "search"
+isPlainText = true
+isHTML = false
+permalinkable = true
+
+[outputFormats.manifest]
+baseName = "site"
+mediaType = "application/manifest+json"
+rel = "manifest"
+isPlainText = true
+isHTML = false

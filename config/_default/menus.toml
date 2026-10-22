@@ -1,0 +1,40 @@
+# 菜单配置（FixIt）
+[[main]]
+identifier = "home"
+name = "首页"
+url = "/"
+weight = 1
+[main.params]
+icon = "fa-solid fa-home"
+
+[[main]]
+identifier = "archives"
+name = "归档"
+url = "archives/"
+weight = 2
+[main.params]
+icon = "fa-solid fa-archive"
+
+[[main]]
+identifier = "categories"
+name = "分类"
+url = "categories/"
+weight = 3
+[main.params]
+icon = "fa-solid fa-folder-tree"
+
+[[main]]
+identifier = "tags"
+name = "标签"
+url = "tags/"
+weight = 4
+[main.params]
+icon = "fa-solid fa-tags"
+
+[[main]]
+identifier = "about"
+name = "关于"
+url = "about/"
+weight = 5
+[main.params]
+icon = "fa-solid fa-user"
