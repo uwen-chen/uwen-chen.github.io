@@ -30,7 +30,7 @@ draft: false
 
 ```mermaid
 graph TB
-    subgraph ALIYUN["阿里云 ECS（公网 8.134.69.214）"]
+    subgraph ALIYUN["阿里云 ECS（公网 203.0.113.10）"]
         A1["agent01<br/>wg0 = 10.1.2.1<br/>wg-portal 服务端 + K3s agent + Cilium"]
     end
 

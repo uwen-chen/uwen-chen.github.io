@@ -1,6 +1,6 @@
 # 站点基础配置
 title = "我的博客"
-baseURL = "https://example.org/"
+baseURL = "https://uwen-chen.github.io/"
 
 # 中文站点
 defaultContentLanguage = "zh-cn"
