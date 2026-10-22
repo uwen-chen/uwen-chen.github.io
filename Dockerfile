@@ -18,11 +18,16 @@ ENV HUGO_ENVIRONMENT=production
 WORKDIR /src
 
 # 安装 Hugo extended + Dart Sass（FixIt v1.0 硬依赖）
-RUN apt-get update \
+# 注：dart-sass 的 Intel 包名为 linux-x64（非 amd64），需映射
+RUN case "${TARGETARCH}" in \
+        amd64) SASS_ARCH=x64 ;; \
+        *) SASS_ARCH="${TARGETARCH}" ;; \
+    esac \
+    && apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates wget \
     && wget -qO /tmp/hugo.tar.gz "https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-${TARGETARCH}.tar.gz" \
     && tar -xzf /tmp/hugo.tar.gz -C /usr/local/bin hugo \
-    && wget -qO /tmp/dart-sass.tar.gz "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-${TARGETARCH}.tar.gz" \
+    && wget -qO /tmp/dart-sass.tar.gz "https://github.com/sass/dart-sass/releases/download/${DART_SASS_VERSION}/dart-sass-${DART_SASS_VERSION}-linux-${SASS_ARCH}.tar.gz" \
     && tar -xzf /tmp/dart-sass.tar.gz -C /opt \
     && ln -s /opt/dart-sass/sass /usr/local/bin/sass \
     && hugo version && sass --version

@@ -35,7 +35,9 @@ jobs:
 
       - name: Install Dart Sass
         run: |
-          sudo snap install sass -s stable
+          wget -qO /tmp/dart-sass.tar.gz "https://github.com/sass/dart-sass/releases/download/1.106.1/dart-sass-1.106.1-linux-x64.tar.gz"
+          sudo tar -xzf /tmp/dart-sass.tar.gz -C /opt
+          sudo ln -s /opt/dart-sass/sass /usr/local/bin/sass
           sass --version
 
       - name: Checkout
