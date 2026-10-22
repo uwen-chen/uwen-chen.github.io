@@ -87,6 +87,9 @@
     border-radius: 0.375rem;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
+    // 去掉主题列表模式的斜纹分隔线（卡片自带边框，不再需要）
+    &::after { content: none; display: none; }
+
     &:hover {
       border-color: light-dark(#0969da, #478be6);
       box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
