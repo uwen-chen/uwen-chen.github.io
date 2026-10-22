@@ -1,0 +1,9 @@
+# 构建无关文件不进镜像
+.git
+.github
+public
+resources
+node_modules
+.hugo_build.lock
+.DS_Store
+*.log
