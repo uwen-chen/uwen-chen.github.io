@@ -1,0 +1,51 @@
+# Markup 渲染配置
+# 注：Hugo 0.168 未自动合并主题的 markup 段，故按 FixIt 要求显式声明
+# noClasses=false 是 FixIt 代码高亮的必要条件（class 方式输出，样式由主题 CSS 控制）
+# https://github.com/hugo-fixit/FixIt/issues/43
+
+[markup.highlight]
+codeFences = true
+noClasses = false        # ★ 必须 false：输出 class 而非 inline style
+anchorLineNos = false
+guessSyntax = true
+lineNos = true
+lineNumbersInTable = true
+
+[markup.goldmark]
+duplicateResourceFiles = false
+
+[markup.goldmark.renderer]
+unsafe = true
+
+[markup.goldmark.extensions]
+definitionList = true
+footnote = true
+linkify = true
+linkifyProtocol = 'https'
+strikethrough = false
+table = true
+taskList = true
+typographer = true
+
+[markup.goldmark.extensions.extras.delete]
+enable = true
+[markup.goldmark.extensions.extras.insert]
+enable = true
+[markup.goldmark.extensions.extras.mark]
+enable = true
+[markup.goldmark.extensions.extras.subscript]
+enable = true
+[markup.goldmark.extensions.extras.superscript]
+enable = true
+
+[markup.goldmark.extensions.passthrough]
+enable = true
+
+[markup.goldmark.extensions.passthrough.delimiters]
+block = [['\\[', '\\]'], ['$$', '$$']]
+inline = [['\\(', '\\)']]
+
+[markup.tableOfContents]
+startLevel = 2
+endLevel = 4
+ordered = true
