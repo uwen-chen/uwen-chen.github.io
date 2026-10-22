@@ -52,7 +52,8 @@ jobs:
 
       - name: Build with Hugo
         env:
-          HUGO_CACHEDIR: $HOME/.cache/hugo
+          # 注意：env 中 $HOME 不展开，必须写绝对路径
+          HUGO_CACHEDIR: /home/runner/.cache/hugo
           HUGO_ENVIRONMENT: production
         run: hugo --minify --cleanDestinationDir
 
