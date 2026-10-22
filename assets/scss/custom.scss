@@ -64,3 +64,118 @@
     font-style: italic;
   }
 }
+
+// -----------------------------------------------------------------------------
+// 首页文章卡片网格（一排 6 张，等高卡片，响应式降级）
+// 结构：.page.home.posts > article.single.summary（标题/meta/摘要/footer）
+// -----------------------------------------------------------------------------
+
+// 首页容器放宽（6 列卡片需要更大画布；仅影响首页，不影响文章页 normal 布局）
+@media (min-width: 1280px) {
+  main:has(> .page.home.posts) {
+    width: 92% !important;
+    max-width: 1500px !important;
+  }
+}
+
+.page.home.posts {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.8rem;
+  align-items: stretch;
+
+  article.single.summary {
+    display: flex;
+    flex-direction: column;
+    min-height: 200px;           // 适量高度，等高排布
+    padding: 0.85rem 0.95rem;
+    overflow: hidden;
+    background: light-dark(#ffffff, #1d2229);
+    border: 1px solid light-dark(#d5dbe2, #3a424d);
+    border-radius: 10px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
+    &:hover {
+      transform: translateY(-4px);
+      border-color: light-dark(#0969da, #4493f8);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.14);
+    }
+
+    // 标题：紧凑两行截断
+    .single-title {
+      margin: 0 0 0.35rem;
+      font-size: 0.92rem;
+      line-height: 1.45;
+
+      a { color: inherit; }
+    }
+
+    // 元信息：只保留发布日期，收窄行距
+    .post-meta {
+      margin-bottom: 0.4rem;
+      font-size: 0.7rem;
+
+      .post-author,
+      .post-included-in { display: none; }
+    }
+
+    // 摘要：三行截断，块级元素全部扁平化/隐藏，避免撑破卡片
+    .content {
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: light-dark(#57606a, #9198a1);
+
+      h1, h2, h3, h4, h5, h6,
+      img, video, table, pre,
+      .mermaid, .code-block,
+      blockquote, ul, ol { display: none; }
+
+      p { margin: 0; }
+
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    // 底部：阅读全文按钮贴底对齐，隐藏标签节省空间
+    .post-footer {
+      margin-top: auto;
+      padding-top: 0.5rem;
+
+      .post-tags { display: none; }
+
+      > a:first-child {
+        display: inline-block;
+        padding: 0.18rem 0.7rem;
+        font-size: 0.72rem;
+        line-height: 1.6;
+        color: light-dark(#ffffff, #0d1117) !important;
+        background: light-dark(#0969da, #4493f8);
+        border-radius: 999px;
+        transition: opacity 0.2s ease;
+
+        &:hover { opacity: 0.85; }
+      }
+    }
+  }
+
+  // 分页器独占整行
+  .pager { grid-column: 1 / -1; }
+}
+
+// 响应式降级：6 → 4 → 3 → 2 列
+@media (max-width: 1280px) {
+  .page.home.posts { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 992px) {
+  .page.home.posts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 576px) {
+  .page.home.posts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+
+    article.single.summary .single-title { font-size: 0.85rem; }
+  }
+}
